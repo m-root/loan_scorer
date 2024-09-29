@@ -32,6 +32,23 @@ class LoanData(BaseModel):
     amount: float
 
 
+# Define the bins and labels for loan amount categorization
+amount_bins = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000,
+               550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, float('inf')]
+amount_labels = ['0-50k', '50k-100k', '100k-150k', '150k-200k', '200k-250k',
+                 '250k-300k', '300k-350k', '350k-400k', '400k-450k', '450k-500k',
+                 '500k-550k', '550k-600k', '600k-650k', '650k-700k', '700k-750k',
+                 '750k-800k', '800k-850k', '850k-900k', '900k-950k', '950k-1M', '1M+']
+
+
+# Function to categorize the loan amount based on the bins
+def categorize_loan_amount(amount: float) -> str:
+    for i, bin_val in enumerate(amount_bins):
+        if amount <= bin_val:
+            return amount_labels[i]
+    return '1M+'  # Default if amount exceeds the last bin
+
+
 # Define the home route
 @app.get("/")
 def read_root():
@@ -42,6 +59,9 @@ def read_root():
 @app.post("/predict")
 def predict_loan_performance(data: LoanData):
     try:
+        # Categorize the loan amount into the appropriate bin
+        amount_bin = categorize_loan_amount(data.amount)
+
         # Prepare the data in the correct format (a 2D array)
         input_data = np.array(
             [
@@ -52,7 +72,7 @@ def predict_loan_performance(data: LoanData):
                     data.total_payments,
                     data.payment_frequency,
                     data.cash_yield_15_dpd,
-                    data.amount
+                    amount_bin
                 ]
             ]
         )
