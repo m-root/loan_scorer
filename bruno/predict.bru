@@ -1,0 +1,24 @@
+meta {
+  name: predict
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://0.0.0.0:8000/predict
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "principal": 300000,
+    "total_owing_at_issue": 345500,
+    "sector": "Beauty Fashion",
+    "amount": 45500,
+    "repayment_cycles": 3,
+    "total_payments": 345500,
+    "payment_frequency": 2
+  }
+  
+}
