@@ -1,0 +1,13 @@
+/.venv/
+/data/test_loan_data.csv
+/data/train_loan_data.csv
+/data/train_payment_data.csv
+/model/.plk
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/.gitignore
+/.idea/loan_scorer.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/model/loan_score_model.pkl
