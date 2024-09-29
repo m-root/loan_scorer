@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "loan_scorer",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
