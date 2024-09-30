@@ -76,5 +76,3 @@ You can now make predictions by sending a POST request to the `/predict` endpoin
   "payment_frequency": 2
 }
 ```
-
----
