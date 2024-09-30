@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
-import numpy as np
 import pandas as pd
 
 # Initialize FastAPI app
@@ -9,7 +8,7 @@ app = FastAPI()
 
 # Load the trained model (which includes the preprocessor)
 try:
-    model = joblib.load('../model/loan_score_model.pkl')  # The full pipeline (preprocessor + model)
+    model = joblib.load('./model/loan_score_model.pkl')
 except FileNotFoundError as e:
     raise HTTPException(
         status_code=500,
@@ -28,7 +27,7 @@ class LoanData(BaseModel):
     total_owing_at_issue: float
     sector: str
     amount: float
-    repayment_cycles: int  # Number of actual repayment cycles
+    repayment_cycles: int
     total_payments: float
     payment_frequency: float
 
@@ -53,7 +52,7 @@ def categorize_loan_amount(amount: float) -> str:
     for i, bin_val in enumerate(amount_bins):
         if amount <= bin_val:
             return amount_labels[i]
-    return '1M+'  # Default if amount exceeds the last bin
+    return '1M+'
 
 
 # Function to categorize the repayment cycle based on the number of cycles
